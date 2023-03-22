@@ -145,8 +145,8 @@ public class Shlemiel {
     public static double evaluatePolynomialLinear(double[] coefficients, double x) {
         double sum = 0, pow = 1;
         // Two multiplications and one add per coefficient.
-        for(double e: coefficients) {
-            sum += e * pow; // Add the current power to the result...
+        for(double coeff: coefficients) {
+            sum += coeff * pow; // Add the current power to the result...
             pow = pow * x; // and use it to compute the next power
         }
         return sum;
@@ -159,12 +159,12 @@ public class Shlemiel {
      * @return The value of the polynomial at point {@code x}.
      */
     public static double evaluatePolynomialHorner(double[] coefficients, double x) {
-        double sum = coefficients[coefficients.length - 1];
+        double sum = 0;
         // One multiplication and one add per coefficient.
-        for(int i = coefficients.length - 2; i >= 0; i--) {
+        for(int i = coefficients.length - 1; i >= 0; i--) {
             sum = sum * x + coefficients[i];
         }
-        // This is more numerically stable when using floating point.
+        // This is also more numerically stable when using floating point.
         return sum;
     }
 
