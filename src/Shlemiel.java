@@ -55,8 +55,9 @@ public class Shlemiel {
         int max = 1;        
         for(int i = 0; i < a.length - 1; i++) {
             int j = i + 1;
-            while(j < a.length && a[j] > a[j-1]) { j++; }
-            if(j > max) { max = j; }
+            int len = 1;
+            while(j < a.length && a[j] > a[j-1]) { j++; len++; }
+            if(len > max) { max = len; }
         }
         return max;
     }
@@ -91,7 +92,7 @@ public class Shlemiel {
      */
     public static boolean twoSummingElementsShlemiel(int[] a, int x) {
         for(int i = 0; i < a.length; i++) {
-            for(int j = i + 1; j < a.length && a[i] + a[j] <= x; i++) {
+            for(int j = i + 1; j < a.length && a[i] + a[j] <= x; j++) {
                 if(a[i] + a[j] == x) { return true; }
             }
         }
@@ -106,7 +107,7 @@ public class Shlemiel {
      */
     public static boolean twoSummingElements(int[] a, int x) {
         int i = 0, j = a.length - 1;
-        // Invariant: If such a pair exists in array, such pair exists between i and j, inclusive.
+        // Invariant: If such a pair exists in array, such pair exists between indices i and j, inclusive.
         while(i < j) {
             int sum = a[i] + a[j];
             if(sum == x) { return true; }
@@ -129,7 +130,7 @@ public class Shlemiel {
     public static double evaluatePolynomialShlemiel(double[] coefficients, double x) {
         double sum = 0;
         for(int i = 0; i < coefficients.length; i++) {
-            double term = 0, pow = 1;
+            double pow = 1;
             // Evaluate each term from scratch in the linear inner loop.
             for(int j = 0; j < i; j++) { pow = pow * x; }
             sum += coefficients[i] * pow;
@@ -224,13 +225,13 @@ public class Shlemiel {
     
     /**
      * Remove all strings from the given arraylist of strings whose length is shorter than {@code len}.
-     * @param a The arraylist of strings to process.
+     * @param strings The arraylist of strings to process.
      * @param len The threshold length for a string to remain in the list.
      */
-    public static void removeShortStringsShlemiel(ArrayList<String> a, int len) {
+    public static void removeShortStringsShlemiel(ArrayList<String> strings, int len) {
         int i = 0;
-        while(i < a.size()) {
-            if(a.get(i).length() < len) { a.remove(i); } // remove from middle is O(n)
+        while(i < strings.size()) {
+            if(strings.get(i).length() < len) { strings.remove(i); } // remove from middle is O(n)
             else { i++; } // advance only if skipping the current element
         }
         // Total worst case running time is O(n) * O(n) = O(n ^ 2)
@@ -238,16 +239,16 @@ public class Shlemiel {
     
     /**
      * Remove all strings from the given arraylist of strings whose length is shorter than {@code len}.
-     * @param a The arraylist of strings to process.
+     * @param strings The arraylist of strings to process.
      * @param len The threshold length for a string to remain in the list.
      */
-    public static void removeShortStrings(ArrayList<String> a, int len) {
+    public static void removeShortStrings(ArrayList<String> strings, int len) {
         ArrayList<String> tmp = new ArrayList<String>();
-        for(String e : a) { // total of O(n) over n rounds
+        for(String e : strings) { // total of O(n) over n rounds
             if(e.length() >= len) { tmp.add(e); } // O(1) amortized add to end
         }
-        a.clear(); // O(n) (references are set to null to enable garbage collection)
-        a.addAll(tmp); // O(n)
+        strings.clear(); // O(n) (references are set to null to enable garbage collection)
+        strings.addAll(tmp); // O(n)
         // Total worst case running time is 3 * O(n) = O(n)
     }
 
