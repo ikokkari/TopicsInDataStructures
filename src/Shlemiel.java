@@ -21,7 +21,7 @@ public class Shlemiel {
         for(int i = 0; i < b.length; i++) {
             int sum = 0;
             for(int j = 0; j <= i; j++) {
-                sum += a[i];
+                sum += a[j];
             }
             b[i] = sum;
         }
@@ -36,6 +36,7 @@ public class Shlemiel {
      */
     public static int[] accumulate(int[] a) {
         int[] b = new int[a.length];
+        if(b.length == 0) { return b; }
         b[0] = a[0];
         for(int i = 1; i < a.length; i++) {
             b[i] = b[i-1] + a[i];
